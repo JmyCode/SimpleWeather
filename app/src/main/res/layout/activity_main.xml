@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="example.com.weather.MainActivity">
+   <TextView
+       android:id="@+id/text_temp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:textColor="@android:color/background_dark"
+       android:textAppearance="?android:attr/textAppearanceLarge"
+       android:paddingStart="16dp"
+       android:textStyle="bold"
+       android:background="#5C6BC0"/>
+
+   <android.support.v7.widget.RecyclerView
+       android:id="@+id/rv_items"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:scrollbars="vertical"
+       android:background="#9FA8DA">
+
+   </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
