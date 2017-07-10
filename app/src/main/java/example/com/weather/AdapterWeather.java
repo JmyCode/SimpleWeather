@@ -17,7 +17,6 @@ public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHold
     private List<example.com.weather.response.List> date;
 
     AdapterWeather(Context context, List<example.com.weather.response.List> date) {
-        super();
         this.date = date;
         this.context = context;
 
