@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,16 @@ import example.com.weather.response.Weather;
 public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHolder> {
     private Context context;
     private List<example.com.weather.response.List> date;
+
+    interface Listener{
+        void onClick(int position);
+    }
+
+    Listener listener;
+
+    public void setListener(Listener listener){
+        this.listener = listener;
+    }
 
     AdapterWeather(Context context, List<example.com.weather.response.List> date) {
         this.date = date;
@@ -28,7 +39,7 @@ public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHold
         return new ViewHolder(view);
     }
 
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         CardView cv = holder.cardView;
         String pathIcon;
         ImageView imageView = (ImageView) cv.findViewById(R.id.image_weather);
@@ -41,6 +52,14 @@ public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHold
             Picasso.with(context).load("http://openweathermap.org/img/w/" + pathIcon + ".png")
                     .into(imageView);
         }
+        cv.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                if(listener != null){
+                    listener.onClick(position);
+                }
+            }
+        });
+
 
     }
 

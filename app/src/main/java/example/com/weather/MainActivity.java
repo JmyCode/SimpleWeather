@@ -1,11 +1,13 @@
 package example.com.weather;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import example.com.weather.response.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setHasFixedSize(true);
                 textTemp.setText(response.body().getCity().getName());
+                adapter.setListener(new AdapterWeather.Listener() {
+                    public void onClick(int position) {
+                        Intent intent = new Intent(getApplicationContext(), OneDayWeather.class);
+                        intent.putExtra(OneDayWeather.EXTRA_WEATHER, position);
+                        startActivity(intent);
+                    }
+                });
+
             }
 
             @Override
@@ -49,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
 
 
