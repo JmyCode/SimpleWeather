@@ -29,7 +29,7 @@ public class Main {
     private int humidity;
     @SerializedName("temp_kf")
     @Expose
-    private int temp_kf;
+    private float temp_kf;
 
     public float getTemp() {
         return temp;
@@ -87,7 +87,7 @@ public class Main {
         this.humidity = humidity;
     }
 
-    public int getTemp_kf() {
+    public float getTemp_kf() {
         return temp_kf;
     }
 

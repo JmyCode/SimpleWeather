@@ -2,27 +2,28 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="example.com.weather.MainActivity">
-   <TextView
-       android:id="@+id/text_temp"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:textColor="@android:color/background_dark"
-       android:textAppearance="?android:attr/textAppearanceLarge"
-       android:paddingStart="16dp"
-       android:textStyle="bold"
-       android:background="#5C6BC0"/>
 
-   <android.support.v7.widget.RecyclerView
-       android:id="@+id/rv_items"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:scrollbars="vertical"
-       android:background="#9FA8DA">
+    <TextView
+        android:id="@+id/text_temp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#5C6BC0"
+        android:paddingStart="16dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/background_dark"
+        android:textStyle="bold"/>
 
-   </android.support.v7.widget.RecyclerView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#9FA8DA"
+        android:scrollbars="vertical">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
