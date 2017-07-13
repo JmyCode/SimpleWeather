@@ -16,12 +16,11 @@ import example.com.weather.response.Weather;
 public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHolder> {
     private Context context;
     private List<example.com.weather.response.List> date;
-
     interface Listener{
         void onClick(int position);
     }
 
-    Listener listener;
+    private Listener listener;
 
     public void setListener(Listener listener){
         this.listener = listener;
@@ -30,7 +29,6 @@ public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHold
     AdapterWeather(Context context, List<example.com.weather.response.List> date) {
         this.date = date;
         this.context = context;
-
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int intItem) {
@@ -41,17 +39,19 @@ public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHold
 
     public void onBindViewHolder(ViewHolder holder, final int position) {
         CardView cv = holder.cardView;
+
         String pathIcon;
         ImageView imageView = (ImageView) cv.findViewById(R.id.image_weather);
         TextView weatherTitle = (TextView) cv.findViewById(R.id.weather_title);
         TextView weather = (TextView) cv.findViewById(R.id.weather);
         weatherTitle.setText(date.get(position).getDt_txt());
-        weather.setText(String.valueOf(date.get(position).getMain().getTemp() + "°C"));
+        weather.setText(String.valueOf(date.get(position).getMain().getTemp()+ "°C"));
         for (Weather w : date.get(position).getWeather()) {
             pathIcon = w.getIcon();
             Picasso.with(context).load("http://openweathermap.org/img/w/" + pathIcon + ".png")
                     .into(imageView);
         }
+
         cv.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 if(listener != null){
@@ -59,7 +59,6 @@ public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHold
                 }
             }
         });
-
 
     }
 
