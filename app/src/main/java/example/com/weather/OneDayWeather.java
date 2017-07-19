@@ -1,36 +1,79 @@
 package example.com.weather;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
+import example.com.weather.response.List;
+import example.com.weather.response.Weather;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OneDayWeather extends AppCompatActivity {
-
-    public static final String EXTRA_WEATHER= "weather";
+    public static final String EXTRA_WEATHER = "weather";
+    RecyclerView recyclerView;
+    AdapterByHour adapterByHour;
+    private ResponseObj weatherByHour;
+    private java.util.List<List> listForecast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_day_weather);
-        Intent intent = getIntent();
-        String temp = intent.getStringExtra("date");
-        float tempC = intent.getFloatExtra("temp", 0);
-        String icon = intent.getStringExtra("icon");
-        TextView tempView = (TextView) findViewById(R.id.text_temp);
-        TextView tempDay= (TextView) findViewById(R.id.temp_day);
-        ImageView imageDay = (ImageView) findViewById(R.id.image_day);
 
-        Picasso.with(getApplicationContext()).load("http://openweathermap.org/img/w/" + icon + ".png").into(imageDay);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_by_hour);
+        final RequestWeather requestWeather = ServiceGenerator.create(RequestWeather.class);
 
-        tempView.setText(temp);
-        tempDay.setText(String.valueOf(tempC+"°C"));
+        requestWeather.getPathWeather().enqueue(new Callback<ResponseObj>() {
+            @Override
+            public void onResponse(Call<ResponseObj> call, Response<ResponseObj> response) {
+                LinearLayoutManager layoutManager = new LinearLayoutManager(OneDayWeather.this);
+                recyclerView.setLayoutManager(layoutManager);
+                Intent intent = getIntent();
+                weatherByHour = response.body();
+                listForecast = weatherByHour.getList();
+                String temp = intent.getStringExtra("date");
+                Date date;
+                String str;
+                ArrayList<Float> tempList = new ArrayList<>();
+                ArrayList<String> dateArray = new ArrayList<>();
+                ArrayList<String> pic = new ArrayList<>();
+                for (List l : listForecast) {
+                    String dateList = l.getDt_txt();
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    SimpleDateFormat newFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+                    try {
+                        date = formatter.parse(dateList);
+                        str = newFormat.format(date);
+                        if (str.equals(temp)) {
+                            tempList.add(l.getMain().getTemp());
+                            dateArray.add(l.getDt_txt());
+                            for (Weather w : l.getWeather()) {
+                                pic.add(w.getIcon());
+                            }
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
 
+                adapterByHour = new AdapterByHour(tempList, dateArray, pic, getApplicationContext());
+                recyclerView.setAdapter(adapterByHour);
+            }
 
+            @Override
+            public void onFailure(Call<ResponseObj> call, Throwable t) {
+
+            }
+        });
     }
 }

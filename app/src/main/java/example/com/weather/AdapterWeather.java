@@ -8,27 +8,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
+
 import java.util.List;
-import example.com.weather.response.Weather;
+
+import utility.DateFormatter;
 
 
 public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHolder> {
+    // private List<example.com.weather.response.List> date;
+    List<example.com.weather.forecast.List> date;
     private Context context;
-    private List<example.com.weather.response.List> date;
-    interface Listener{
-        void onClick(int position);
-    }
-
+    private DateFormatter dateFormatter = new DateFormatter();
     private Listener listener;
 
-    public void setListener(Listener listener){
-        this.listener = listener;
-    }
-
-    AdapterWeather(Context context, List<example.com.weather.response.List> date) {
+    AdapterWeather(Context context, List<example.com.weather.forecast.List> date) {
         this.date = date;
         this.context = context;
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int intItem) {
@@ -39,22 +38,39 @@ public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHold
 
     public void onBindViewHolder(ViewHolder holder, final int position) {
         CardView cv = holder.cardView;
-
-        String pathIcon;
         ImageView imageView = (ImageView) cv.findViewById(R.id.image_weather);
-        TextView weatherTitle = (TextView) cv.findViewById(R.id.weather_title);
+        TextView weatherTitle = (TextView) cv.findViewById(R.id.weather_day_week);
         TextView weather = (TextView) cv.findViewById(R.id.weather);
-        weatherTitle.setText(date.get(position).getDt_txt());
-        weather.setText(String.valueOf(date.get(position).getMain().getTemp()+ "°C"));
-        for (Weather w : date.get(position).getWeather()) {
-            pathIcon = w.getIcon();
-            Picasso.with(context).load("http://openweathermap.org/img/w/" + pathIcon + ".png")
-                    .into(imageView);
-        }
+        TextView rainText = (TextView) cv.findViewById(R.id.rain_text);
+        TextView winterSpeed = (TextView) cv.findViewById(R.id.winter_speed);
+        TextView pressure = (TextView) cv.findViewById(R.id.pressure);
 
-        cv.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                if(listener != null){
+        weather.setText(context.getString(R.string.temp_value, date.get(position).getTemp().getDay()));
+
+
+        dateFormatter.formatDate(position, weatherTitle);
+        dateFormatter.pushDate(position, date, context, imageView, rainText);
+
+        winterSpeed.setText(context.getString(R.string.winter, date.get(position).getSpeed()));
+
+
+        pressure.setText(context.getString(R.string.pressure, date.get(position).getPressure()));
+
+
+
+//Date d = new Date();
+        /*Для ResponseObj*/
+//        weatherTitle.setText(date.get(position).getDt_txt());
+//        weather.setText(String.valueOf(date.get(position).getMain().getTemp()+ "°C"));
+//        for (Weather w : date.get(position).getWeather()) {
+//            pathIcon = w.getIcon();
+//            Picasso.with(context).load("http://openweathermap.org/img/w/" + pathIcon + ".png")
+//                    .into(imageView);
+//        }
+
+        cv.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (listener != null) {
                     listener.onClick(position);
                 }
             }
@@ -63,7 +79,11 @@ public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHold
     }
 
     public int getItemCount() {
-        return date.size();
+        return 5;
+    }
+
+    interface Listener {
+        void onClick(int position);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

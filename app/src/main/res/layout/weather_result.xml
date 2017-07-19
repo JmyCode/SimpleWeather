@@ -21,25 +21,49 @@
 
         <ImageView
             android:id="@+id/image_weather"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:contentDescription="@string/weather_icon"/>
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/weather_icon"
+            android:layout_alignParentEnd="true"/>
 
         <TextView
-            android:id="@+id/weather_title"
+            android:id="@+id/weather_day_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:paddingTop="10dp"
-            android:textSize="10sp"/>
+            android:text="@string/week_day"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
 
         <TextView
             android:id="@+id/weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/weather_title"
-            android:layout_marginTop="15dp"
+            android:layout_below="@+id/image_weather"
+            android:layout_alignStart="@+id/image_weather"
+            android:text="@string/temp_value"
             android:textColor="#2196F3"/>
+
+        <TextView
+            android:id="@+id/rain_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rain_text"
+            android:layout_below="@+id/weather_day_week"
+            />
+        <TextView
+            android:id="@+id/winter_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/winter"
+            android:layout_below="@+id/rain_text"/>
+
+        <TextView
+            android:id="@+id/pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pressure"
+            android:layout_below="@+id/winter_speed"/>
 
 
     </RelativeLayout>

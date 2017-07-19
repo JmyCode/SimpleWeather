@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">Weather</string>
     <string name="weather_icon">Icon</string>
-    <string name="today">Today</string>
-
+    <string name="today">Сегодня</string>
+    <string name="temp_value">%1$.1f°C</string>
+    <string name="temp">температура</string>
+    <string name="pressure">давление %1$.2f гПа</string>
+    <string name="pressure_dimension">гПа</string>
+    <string name="week_day">дни недели</string>
+    <string name="rain">%1$s %2$.1f</string>
+    <string name="rain_text">дождь</string>
+    <string name="winter">ветер %1$.2f м/c</string>
+    <string name="city_name">City</string>
 </resources>
