@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 import example.com.weather.R;
-import utility.DateFormatter;
+import example.com.weather.utility.DateFormatter;
 
 
 public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHolder> {

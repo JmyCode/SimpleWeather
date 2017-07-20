@@ -1,4 +1,4 @@
-package utility;
+package example.com.weather.utility;
 
 import android.content.Context;
 import android.widget.ImageView;
@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import example.com.weather.Constants;
 import example.com.weather.R;
 import example.com.weather.forecast.List;
 import example.com.weather.forecast.Weather;
@@ -31,7 +32,7 @@ public class DateFormatter {
         for (Weather w : date.get(position).getWeather()) {
             String pathIcon = w.getIcon();
             String descriptionClouds = w.getDescription();
-            Picasso.with(context).load("http://openweathermap.org/img/w/" + pathIcon + ".png")
+            Picasso.with(context).load(Constants.iconPath + pathIcon + ".png")
                     .into(imageView);
             rainText.setText(context.getString(R.string.rain, descriptionClouds, rainForecast));
         }

@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import example.com.weather.Constants;
 import example.com.weather.R;
 
 
@@ -41,7 +42,7 @@ public class AdapterByHour extends RecyclerView.Adapter<AdapterByHour.ViewHolder
         ImageView img = (ImageView) card.findViewById(R.id.img);
         weatherValue.setText(context.getString(R.string.temp_value, tempValue.get(position)));
         dateValue.setText(context.getString(R.string.date_value, dateArray.get(position)));
-        Picasso.with(context).load("http://openweathermap.org/img/w/" + icon.get(position) + ".png")
+        Picasso.with(context).load(Constants.iconPath + icon.get(position) + ".png")
                 .into(img);
     }
 

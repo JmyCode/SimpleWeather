@@ -1,4 +1,4 @@
-package example.com.weather;
+package example.com.weather.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import example.com.weather.Constants;
+import example.com.weather.R;
+import example.com.weather.rest.RequestWeather;
+import example.com.weather.rest.ServiceGenerator;
 import example.com.weather.adapters.AdapterByHour;
 import example.com.weather.response.List;
 import example.com.weather.response.ResponseObj;
@@ -23,8 +27,8 @@ import retrofit2.Response;
 
 public class OneDayWeather extends AppCompatActivity {
     public static final String EXTRA_WEATHER = "weather";
-    RecyclerView recyclerView;
-    AdapterByHour adapterByHour;
+    private RecyclerView recyclerView;
+    private AdapterByHour adapterByHour;
     private ResponseObj weatherByHour;
     private java.util.List<List> listForecast;
 
@@ -34,15 +38,16 @@ public class OneDayWeather extends AppCompatActivity {
         setContentView(R.layout.activity_one_day_weather);
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_by_hour);
-        final RequestWeather requestWeather = ServiceGenerator.create(RequestWeather.class);
+        RequestWeather requestWeather = ServiceGenerator.create(RequestWeather.class);
 
-        requestWeather.getPathWeather().enqueue(new Callback<ResponseObj>() {
+        requestWeather.getWeatherByDay(Constants.LAT, Constants.LON, Constants.LANG, Constants.DIMENSION, Constants.KEY).enqueue(new Callback<ResponseObj>() {
             @Override
             public void onResponse(Call<ResponseObj> call, Response<ResponseObj> response) {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(OneDayWeather.this);
                 recyclerView.setLayoutManager(layoutManager);
                 Intent intent = getIntent();
                 weatherByHour = response.body();
+                if(weatherByHour != null)
                 listForecast = weatherByHour.getList();
                 String dateValue = intent.getStringExtra(OneDayWeather.EXTRA_WEATHER);
                 Date date;

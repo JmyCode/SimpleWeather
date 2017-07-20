@@ -1,4 +1,4 @@
-package example.com.weather;
+package example.com.weather.rest;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

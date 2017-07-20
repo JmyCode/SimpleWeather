@@ -1,4 +1,4 @@
-package example.com.weather;
+package example.com.weather.activitys;
 
 
 import android.app.Activity;
@@ -18,18 +18,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import example.com.weather.Constants;
+import example.com.weather.R;
+import example.com.weather.rest.RequestWeather;
+import example.com.weather.rest.ServiceGenerator;
 import example.com.weather.adapters.AdapterWeather;
 import example.com.weather.forecast.ForecastObj;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import utility.DateFormatter;
+import example.com.weather.utility.DateFormatter;
 
 public class MainActivity extends Activity {
 
-    private final String KEY = "21a8d636ae57d56ec6fb2ebb46d3e0b4";
-    private final double LAT = 52.73;
-    private final double LON = 41.43;
+
     private List<example.com.weather.forecast.List> dateWeather;
     private ForecastObj jSonResponse;
     private TextView todayWeather;
@@ -49,8 +51,7 @@ public class MainActivity extends Activity {
         titleIcon = (ImageView) findViewById(R.id.icon_title);
         RequestWeather requestWeather = ServiceGenerator.create(RequestWeather.class);
 
-
-        requestWeather.getWeather(LAT, LON, "ru", "metric", "5", KEY).enqueue(new Callback<ForecastObj>() {
+        requestWeather.getWeather(Constants.LAT, Constants.LON, Constants.LANG, Constants.DIMENSION, Constants.KEY).enqueue(new Callback<ForecastObj>() {
             @Override
             public void onResponse(Call<ForecastObj> call, Response<ForecastObj> response) {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
@@ -65,7 +66,6 @@ public class MainActivity extends Activity {
                 dateFormatter.pushDate(0, dateWeather, getApplicationContext(), titleIcon, rainTitle);
 
                 CollapsingToolbarLayout ctl = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbar);
-
                 ctl.setTitle(response.body().getCity().getName());
                 ctl.setExpandedTitleColor(Color.BLACK);
 
@@ -86,7 +86,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onFailure(Call<ForecastObj> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "error ", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "error", Toast.LENGTH_LONG).show();
             }
         });
     }
