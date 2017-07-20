@@ -9,6 +9,7 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import example.com.weather.R;
 import example.com.weather.forecast.List;
@@ -20,7 +21,7 @@ public class DateFormatter {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, position);
         Date dateForecast = cal.getTime();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E dd.MM.yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E dd.MM.yyyy", Locale.getDefault());
         String resultDate = simpleDateFormat.format(dateForecast);
         weatherTitle.setText(resultDate);
     }

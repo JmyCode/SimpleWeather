@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="icon_size">70dp</dimen>
+    <dimen name="icon_size_by_day">50dp</dimen>
+    <dimen name="date_by_day">14sp</dimen>
+    <dimen name="padding_and_cards">5dp</dimen>
+</resources>

@@ -1,5 +1,7 @@
 package example.com.weather;
 
+import example.com.weather.forecast.ForecastObj;
+import example.com.weather.response.ResponseObj;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
