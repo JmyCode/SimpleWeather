@@ -7,9 +7,15 @@
     <string name="temp">температура</string>
     <string name="pressure">давление %1$.2f гПа</string>
     <string name="week_day">дни недели</string>
-    <string name="rain">%1$s %2$.1f мм осадков</string>
+    <string name="rain">%1$s %2$.1f мм</string>
     <string name="rain_text">осадки</string>
     <string name="winter">ветер %1$.2f м/c</string>
     <string name="city_name">City</string>
     <string name="date_and_hour">дата</string>
+    <string name="find_city">indicate city</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_frame">Название города</string>
+    <string name="cancel">Отмена</string>
+    <string name="ok">OK</string>
 </resources>

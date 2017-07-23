@@ -1,8 +1,8 @@
-package example.com.weather.activitys;
+package example.com.weather.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -15,40 +15,40 @@ import java.util.Locale;
 
 import example.com.weather.Constants;
 import example.com.weather.R;
-import example.com.weather.rest.RequestWeather;
-import example.com.weather.rest.ServiceGenerator;
 import example.com.weather.adapters.AdapterByHour;
 import example.com.weather.response.List;
 import example.com.weather.response.ResponseObj;
 import example.com.weather.response.Weather;
+import example.com.weather.rest.RequestWeather;
+import example.com.weather.rest.ServiceGenerator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OneDayWeather extends AppCompatActivity {
+public class OneDayWeather extends Activity {
     public static final String EXTRA_WEATHER = "weather";
     private RecyclerView recyclerView;
     private AdapterByHour adapterByHour;
     private ResponseObj weatherByHour;
     private java.util.List<List> listForecast;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_day_weather);
-
+        intent = getIntent();
+        String cityName = intent.getStringExtra("city");
         recyclerView = (RecyclerView) findViewById(R.id.rv_by_hour);
         RequestWeather requestWeather = ServiceGenerator.create(RequestWeather.class);
-
-        requestWeather.getWeatherByDay(Constants.LAT, Constants.LON, Constants.LANG, Constants.DIMENSION, Constants.KEY).enqueue(new Callback<ResponseObj>() {
+        requestWeather.getWeatherByHour(cityName, Constants.LANG, Constants.DIMENSION, Constants.KEY).enqueue(new Callback<ResponseObj>() {
             @Override
             public void onResponse(Call<ResponseObj> call, Response<ResponseObj> response) {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(OneDayWeather.this);
                 recyclerView.setLayoutManager(layoutManager);
-                Intent intent = getIntent();
                 weatherByHour = response.body();
-                if(weatherByHour != null)
-                listForecast = weatherByHour.getList();
+                if (weatherByHour != null)
+                    listForecast = weatherByHour.getList();
                 String dateValue = intent.getStringExtra(OneDayWeather.EXTRA_WEATHER);
                 Date date;
                 String newDateFormat;
@@ -83,5 +83,6 @@ public class OneDayWeather extends AppCompatActivity {
                 Toast.makeText(OneDayWeather.this, "error ", Toast.LENGTH_LONG).show();
             }
         });
+
     }
 }
