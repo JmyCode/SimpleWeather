@@ -4,7 +4,7 @@
     android:layout_width="200dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="example.com.weather.DialogFragment">
+    tools:context="example.com.weather.views.DialogFragment">
 
     <TextView
         android:layout_gravity="center"

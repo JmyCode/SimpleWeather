@@ -11,10 +11,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import example.com.weather.Constants;
 import example.com.weather.R;
-import example.com.weather.forecast.List;
-import example.com.weather.forecast.Weather;
+import example.com.weather.model.forecast.ForecastObj;
+import example.com.weather.model.forecast.List;
+import example.com.weather.model.forecast.Weather;
 
 
 public class DateFormatter {
@@ -29,6 +29,7 @@ public class DateFormatter {
 
     public void pushDate(int position, java.util.List<List> date, Context context, ImageView imageView, TextView rainText) {
         float rainForecast = (date.get(position).getRain());
+
         for (Weather w : date.get(position).getWeather()) {
             String pathIcon = w.getIcon();
             String descriptionClouds = w.getDescription();
