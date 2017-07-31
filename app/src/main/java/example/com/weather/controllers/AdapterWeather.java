@@ -12,7 +12,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import example.com.weather.ProviderWeather;
 import example.com.weather.R;
 import example.com.weather.model.CallbackWeather;
 import example.com.weather.utility.DateFormatter;

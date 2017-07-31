@@ -1,4 +1,4 @@
-package example.com.weather;
+package example.com.weather.controllers;
 
 /**
  * Created by Pavel on 31.07.2017.

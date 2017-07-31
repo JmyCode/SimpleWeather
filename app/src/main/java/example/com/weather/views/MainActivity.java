@@ -23,9 +23,9 @@ import java.util.Date;
 import java.util.Locale;
 
 import example.com.weather.R;
-import example.com.weather.Setplaces;
+import example.com.weather.controllers.Setplaces;
 import example.com.weather.controllers.AdapterWeather;
-import example.com.weather.controllers.Presenter;
+import example.com.weather.controllers.PresenterToDay;
 import example.com.weather.utility.Constants;
 
 
@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements Setplaces {
     private FindCityDialog dialog = new FindCityDialog();
     private RecyclerView recyclerView;
     private AdapterWeather adapter;
-    private Presenter presenter;
-    CollapsingToolbarLayout ctl;
+    private PresenterToDay presenter;
+    private CollapsingToolbarLayout ctl;
     private TextView temp;
     private ImageView icon;
 
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements Setplaces {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new AdapterWeather(this);
         recyclerView.setAdapter(adapter);
-        presenter = new Presenter(this);
+        presenter = new PresenterToDay(this);
         icon = (ImageView) findViewById(R.id.icon_title);
 
         temp = (TextView) findViewById(R.id.temp_today);

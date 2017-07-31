@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.security.PrivateKey;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,9 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import example.com.weather.ProviderWeather;
 import example.com.weather.model.CallbackWeather;
-import example.com.weather.model.WeatherModel;
 import example.com.weather.model.response.Weather;
 import example.com.weather.utility.Constants;
 import example.com.weather.R;

@@ -1,4 +1,4 @@
-package example.com.weather;
+package example.com.weather.controllers;
 
 
 import example.com.weather.model.CallbackWeather;
