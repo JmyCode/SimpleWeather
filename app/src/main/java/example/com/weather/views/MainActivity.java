@@ -3,6 +3,7 @@ package example.com.weather.views;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -39,7 +40,9 @@ public class MainActivity extends AppCompatActivity implements Setplaces {
     private PresenterToDay presenter;
     private CollapsingToolbarLayout ctl;
     private TextView temp;
+    private TextView description;
     private ImageView icon;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +59,10 @@ public class MainActivity extends AppCompatActivity implements Setplaces {
         recyclerView.setAdapter(adapter);
         presenter = new PresenterToDay(this);
         icon = (ImageView) findViewById(R.id.icon_title);
-
+        description = (TextView) findViewById(R.id.rain_in_title);
         temp = (TextView) findViewById(R.id.temp_today);
         ctl = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbar);
+        ctl.setExpandedTitleColor(Color.BLACK);
         config();
 
 
@@ -103,10 +107,9 @@ public class MainActivity extends AppCompatActivity implements Setplaces {
         }
     }
 
-
     @Override
     public void setTemp(float tempToday){
-        temp.setText(String.valueOf(tempToday));
+        temp.setText(this.getString(R.string.temp_value, tempToday));
     }
 
     @Override
@@ -120,7 +123,10 @@ public class MainActivity extends AppCompatActivity implements Setplaces {
                 .into(icon);
     }
 
-
+    @Override
+    public void setDescription(String description) {
+        this.description.setText(description);
+    }
 }
 
 

@@ -2,14 +2,14 @@ package example.com.weather.controllers;
 
 
 import example.com.weather.model.CallbackWeather;
-import example.com.weather.model.MyApp;
 import example.com.weather.model.WeatherModel;
 
 
 
 public class ProviderWeather {
 
-    private WeatherModel model = MyApp.getInstance();
+    private WeatherModel model = new WeatherModel();
+
 
     public ProviderWeather() {
 

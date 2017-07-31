@@ -60,7 +60,6 @@ public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHold
                     }
                 }
         );
-
     }
 
     public void updateWeather(){

@@ -3,6 +3,7 @@ package example.com.weather.controllers;
 import android.content.Context;
 import android.widget.Toast;
 
+
 import example.com.weather.model.CallbackWeather;
 import example.com.weather.model.oneday.ResponseOneDay;
 import example.com.weather.views.MainActivity;
@@ -10,9 +11,11 @@ import example.com.weather.views.MainActivity;
 public class PresenterToDay implements CallbackWeather<ResponseOneDay> {
     private Context context;
     private ProviderWeather provider = new ProviderWeather();
-    private ResponseOneDay responseOneDay = new ResponseOneDay();
-
-    Setplaces setplaces;
+    private float temp;
+    private String name;
+    private String icon;
+    private String description;
+    private Setplaces setplaces;
 
     public PresenterToDay(MainActivity activity) {
         setplaces =  activity;
@@ -25,14 +28,18 @@ public class PresenterToDay implements CallbackWeather<ResponseOneDay> {
     }
 
     public void setView() {
-        setplaces.setTemp(responseOneDay.getMain().getTemp());
-        setplaces.setName(responseOneDay.getName());
-        setplaces.setIcon(responseOneDay.getWeather().get(0).getIcon());
+        setplaces.setTemp(temp);
+        setplaces.setName(name);
+        setplaces.setIcon(icon);
+        setplaces.setDescription(description);
     }
 
     @Override
     public void successWeather(ResponseOneDay weatherDate) {
-        responseOneDay = weatherDate;
+        description = weatherDate.getWeather().get(0).getDescription();
+        temp = weatherDate.getMain().getTemp();
+        name = weatherDate.getName();
+        icon = weatherDate.getWeather().get(0).getIcon();
     }
 
     @Override

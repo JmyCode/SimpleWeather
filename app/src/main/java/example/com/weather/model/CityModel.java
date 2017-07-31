@@ -27,8 +27,8 @@ public class CityModel{
         return cityName;
     }
 
-    public static void setCityName(String cityName1) {
-        cityName = cityName1;
+    public static void setCityName(String city) {
+        cityName = city;
     }
 
 }

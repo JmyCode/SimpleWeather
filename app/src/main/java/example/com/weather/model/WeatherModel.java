@@ -21,6 +21,7 @@ public class WeatherModel {
     private RequestWeather requestWeather = ServiceGenerator.create(RequestWeather.class);
 
 
+
     public WeatherModel() {
 
     }
