@@ -1,32 +1,24 @@
 package example.com.weather.controllers;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import example.com.weather.ProviderWeather;
-import example.com.weather.R;
+import example.com.weather.Setplaces;
 import example.com.weather.model.CallbackWeather;
 import example.com.weather.model.oneday.ResponseOneDay;
+import example.com.weather.views.MainActivity;
 
 public class Presenter implements CallbackWeather<ResponseOneDay> {
     private Context context;
     private ProviderWeather provider = new ProviderWeather();
-    private TextView temp;
     private ResponseOneDay responseOneDay = new ResponseOneDay();
-    private CollapsingToolbarLayout ctl;
 
+    Setplaces setplaces;
 
-
-    public Presenter(View view, Context context) {
-        this.context = context;
-        temp = (TextView) view.findViewById(R.id.temp_today);
-        temp.setTextColor(Color.BLACK);
-        ctl = (CollapsingToolbarLayout) view.findViewById(R.id.collapsingToolbar);
-        ctl.setExpandedTitleColor(Color.BLACK);
+    public Presenter(MainActivity activity) {
+        setplaces =  activity;
+        context = activity.getApplicationContext();
 
     }
 
@@ -35,8 +27,9 @@ public class Presenter implements CallbackWeather<ResponseOneDay> {
     }
 
     public void setView() {
-        ctl.setTitle(responseOneDay.getName());
-
+        setplaces.setTemp(responseOneDay.getMain().getTemp());
+        setplaces.setName(responseOneDay.getName());
+        setplaces.setIcon(responseOneDay.getWeather().get(0).getIcon());
     }
 
     @Override

@@ -8,15 +8,19 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.Button;
-
 import example.com.weather.R;
+
 
 public class DialogFragment extends android.app.DialogFragment {
 
-    FrameListener frameListener;
 
-    public DialogFragment() {
+    //FrameListener frameListener;
+
+
+    public DialogFragment(){
+
     }
+
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -32,7 +36,7 @@ public class DialogFragment extends android.app.DialogFragment {
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        frameListener.onDialogPositiveClick(DialogFragment.this);
+                       //frameListener.onDialogPositiveClick(DialogFragment.this);
 
                     }
                 });
@@ -48,14 +52,16 @@ public class DialogFragment extends android.app.DialogFragment {
         button1.setTextColor(getResources().getColor(R.color.colorPrimary));
     }
 
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        frameListener = (FrameListener) context;
-    }
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        frameListener = (FrameListener) context;
+//    }
 
     public interface FrameListener {
         void onDialogPositiveClick(DialogFragment dialog);
         void onDialogNegativeClick(DialogFragment dialog);
     }
+
+
 
 }

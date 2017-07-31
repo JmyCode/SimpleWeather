@@ -18,16 +18,15 @@ import static example.com.weather.utility.Constants.days;
 
 
 public class WeatherModel {
-
     private RequestWeather requestWeather = ServiceGenerator.create(RequestWeather.class);
-    private String cityName = "Tambov";
+
 
     public WeatherModel() {
 
     }
 
     public void getAllWeather(CallbackWeather callbackWeather) {
-        requestWeather.getWeather(cityName, days, LANG, DIMENSION, KEY).enqueue(new Callback<ForecastObj>() {
+        requestWeather.getWeather(CityModel.getCityName(), days, LANG, DIMENSION, KEY).enqueue(new Callback<ForecastObj>() {
             @Override
             public void onResponse(Call<ForecastObj> call, Response<ForecastObj> response) {
                 ForecastObj jSonResponse = response.body();
@@ -44,7 +43,7 @@ public class WeatherModel {
     }
 
     public void getWeatherByHours(CallbackWeather callbackWeather) {
-        requestWeather.getWeatherByHour(cityName, Constants.LANG, Constants.DIMENSION, Constants.KEY).enqueue(new Callback<ResponseObj>() {
+        requestWeather.getWeatherByHour(CityModel.getCityName(), Constants.LANG, Constants.DIMENSION, Constants.KEY).enqueue(new Callback<ResponseObj>() {
             @Override
             public void onResponse(Call<ResponseObj> call, Response<ResponseObj> response) {
                 ResponseObj weatherByHour = response.body();
@@ -60,7 +59,7 @@ public class WeatherModel {
     }
 
     public void getCurrent(CallbackWeather callbackWeather) {
-        requestWeather.getCurrentWeather(cityName, Constants.LANG, Constants.DIMENSION, Constants.KEY).enqueue(new Callback<ResponseOneDay>() {
+        requestWeather.getCurrentWeather(CityModel.getCityName(), Constants.LANG, Constants.DIMENSION, Constants.KEY).enqueue(new Callback<ResponseOneDay>() {
             @Override
             public void onResponse(Call<ResponseOneDay> call, Response<ResponseOneDay> response) {
                 ResponseOneDay weatherByDay = response.body();

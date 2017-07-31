@@ -36,13 +36,10 @@ public class OneDayWeather extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_day_weather);
         intent = getIntent();
-        String cityName = intent.getStringExtra("city");
         recyclerView = (RecyclerView) findViewById(R.id.rv_by_hour);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
         adapterByHour = new AdapterByHour(getApplicationContext(), intent);
-
         recyclerView.setAdapter(adapterByHour);
 
     }
