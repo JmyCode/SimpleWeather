@@ -19,7 +19,7 @@ public class CityModel{
 
 
 
-     static String cityName = "Tambov";
+     private static String cityName = "Tambov";
 
 
 

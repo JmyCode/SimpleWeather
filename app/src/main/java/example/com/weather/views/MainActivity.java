@@ -71,9 +71,9 @@ public class MainActivity extends AppCompatActivity implements Setplaces {
     protected void onStart(){
         super.onStart();
         adapter.updateWeather();
-        presenter.getTitle();
-        presenter.setView();
 
+
+        presenter.updateTitle();
     }
 
     public void config() {

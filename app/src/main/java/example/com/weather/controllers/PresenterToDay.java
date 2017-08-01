@@ -23,23 +23,20 @@ public class PresenterToDay implements CallbackWeather<ResponseOneDay> {
 
     }
 
-    public void getTitle() {
+    public void updateTitle() {
         provider.getTitleWeather(this);
-    }
-
-    public void setView() {
-        setplaces.setTemp(temp);
-        setplaces.setName(name);
-        setplaces.setIcon(icon);
-        setplaces.setDescription(description);
     }
 
     @Override
     public void successWeather(ResponseOneDay weatherDate) {
-        description = weatherDate.getWeather().get(0).getDescription();
         temp = weatherDate.getMain().getTemp();
         name = weatherDate.getName();
         icon = weatherDate.getWeather().get(0).getIcon();
+        description = weatherDate.getWeather().get(0).getDescription();
+        setplaces.setTemp(temp);
+        setplaces.setName(name);
+        setplaces.setIcon(icon);
+        setplaces.setDescription(description);
     }
 
     @Override

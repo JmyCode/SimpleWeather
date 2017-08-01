@@ -8,11 +8,10 @@ public class MyApp extends Application {
 
 
 
-//
-//    public void onCreate(){
-//        super.onCreate();
-//        WeatherModel model = new  WeatherModel();
-//    }
+
+    public void onCreate(){
+        super.onCreate();
+    }
 
 
 

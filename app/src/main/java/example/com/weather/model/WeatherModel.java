@@ -30,9 +30,11 @@ public class WeatherModel {
         requestWeather.getWeather(CityModel.getCityName(), days, LANG, DIMENSION, KEY).enqueue(new Callback<ForecastObj>() {
             @Override
             public void onResponse(Call<ForecastObj> call, Response<ForecastObj> response) {
-                ForecastObj jSonResponse = response.body();
-                java.util.List<List> date = jSonResponse.getList();
-                callbackWeather.successWeather(date);
+                if (response.body() != null) {
+                    ForecastObj jSonResponse = response.body();
+                    java.util.List<List> date = jSonResponse.getList();
+                    callbackWeather.successWeather(date);
+                }
             }
 
             @Override
@@ -63,8 +65,10 @@ public class WeatherModel {
         requestWeather.getCurrentWeather(CityModel.getCityName(), Constants.LANG, Constants.DIMENSION, Constants.KEY).enqueue(new Callback<ResponseOneDay>() {
             @Override
             public void onResponse(Call<ResponseOneDay> call, Response<ResponseOneDay> response) {
-                ResponseOneDay weatherByDay = response.body();
-                callbackWeather.successWeather(weatherByDay);
+                if (response.body() != null) {
+                    ResponseOneDay weatherByDay = response.body();
+                    callbackWeather.successWeather(weatherByDay);
+                }
             }
 
             @Override
