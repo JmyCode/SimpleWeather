@@ -21,7 +21,6 @@ public class WeatherModel {
     private RequestWeather requestWeather = ServiceGenerator.create(RequestWeather.class);
 
 
-
     public WeatherModel() {
 
     }
@@ -49,9 +48,11 @@ public class WeatherModel {
         requestWeather.getWeatherByHour(CityModel.getCityName(), Constants.LANG, Constants.DIMENSION, Constants.KEY).enqueue(new Callback<ResponseObj>() {
             @Override
             public void onResponse(Call<ResponseObj> call, Response<ResponseObj> response) {
-                ResponseObj weatherByHour = response.body();
-                java.util.List<example.com.weather.model.response.List> dateByDay = weatherByHour.getList();
-                callbackWeather.successWeather(dateByDay);
+                if (response.body() != null) {
+                    ResponseObj weatherByHour = response.body();
+                    java.util.List<example.com.weather.model.response.List> dateByDay = weatherByHour.getList();
+                    callbackWeather.successWeather(dateByDay);
+                }
             }
 
             @Override
@@ -77,9 +78,6 @@ public class WeatherModel {
             }
         });
     }
-
-
-
 
 
 }

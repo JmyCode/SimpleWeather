@@ -12,9 +12,9 @@ import example.com.weather.model.CityModel;
 
 public class FindCityDialog {
 
-    CityModel cityModel = CityModel.create();
+    private CityModel cityModel = CityModel.create();
 
-    EditText editText;
+    private EditText editText;
 
     public AlertDialog getDialog(Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);

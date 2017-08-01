@@ -13,15 +13,10 @@ public class CityModel{
     public static CityModel create(){
         if (cityModel == null)
             cityModel = new CityModel();
-
         return cityModel;
     }
 
-
-
      private static String cityName = "Tambov";
-
-
 
     public static String getCityName() {
         return cityName;
