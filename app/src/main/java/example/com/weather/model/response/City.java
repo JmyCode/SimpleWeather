@@ -18,11 +18,9 @@ public class City {
     @SerializedName("country")
     @Expose
     private String country;
-
     @SerializedName("population")
     @Expose
     private int population;
-
 
     public int getId() {
         return id;

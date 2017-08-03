@@ -1,9 +1,8 @@
-package example.com.weather.model.rest;
+package example.com.weather.network;
 
 import example.com.weather.model.forecast.ForecastObj;
 import example.com.weather.model.oneday.ResponseOneDay;
 import example.com.weather.model.response.ResponseObj;
-import example.com.weather.views.OneDayWeather;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -18,7 +17,6 @@ public interface RequestWeather {
                                  @Query("units") String units,
                                  @Query("APPID") String key);
 
-
     @GET("data/2.5/forecast")
     Call<ResponseObj> getWeatherByHour(@Query("q") String q,
                                        @Query("lang") String lang,
@@ -30,8 +28,4 @@ public interface RequestWeather {
                                            @Query("lang") String lang,
                                            @Query("units") String units,
                                            @Query("APPID") String key);
-
-
-
-
 }

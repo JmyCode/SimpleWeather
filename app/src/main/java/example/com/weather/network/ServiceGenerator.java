@@ -1,4 +1,4 @@
-package example.com.weather.model.rest;
+package example.com.weather.network;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -20,7 +20,8 @@ public class ServiceGenerator {
 
     private static Retrofit retrofit = builder.build();
 
-    private ServiceGenerator() {}
+    private ServiceGenerator() {
+    }
 
     public static <S> S create(Class<S> serviceClass) {
         if (!httpClient.interceptors().contains(loggin)) {

@@ -1,6 +1,7 @@
 package example.com.weather.views;
 
 import android.app.*;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,13 +9,20 @@ import android.widget.EditText;
 
 import example.com.weather.R;
 import example.com.weather.model.CityModel;
+import example.com.weather.model.MyApp;
+import example.com.weather.model.WeatherModel;
+import example.com.weather.model.forecast.Weather;
 
 
 public class FindCityDialog {
 
-    private CityModel cityModel = CityModel.create();
-
+    private WeatherModel weatherModel;
     private EditText editText;
+
+    FindCityDialog(Context context) {
+        MyApp myApp = (MyApp) context.getApplicationContext();
+        weatherModel = myApp.create();
+    }
 
     public AlertDialog getDialog(Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -32,18 +40,13 @@ public class FindCityDialog {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         String result = editText.getText().toString();
-
                         if (result.isEmpty() || result.startsWith(" ")) {
                             result = "Tambov";
                         }
-                        cityModel.setCityName(result);
+                        weatherModel.getCityModel().setCityName(result);
                         activity.recreate();
-
                     }
                 });
-
         return builder.create();
-
     }
-
 }

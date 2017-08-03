@@ -1,29 +1,15 @@
 package example.com.weather.model;
 
 
+public class CityModel {
 
-public class CityModel{
+    private String cityName = "Tambov";
 
-    private static CityModel cityModel;
-
-    private CityModel(){
-
-    }
-
-    public static CityModel create(){
-        if (cityModel == null)
-            cityModel = new CityModel();
-        return cityModel;
-    }
-
-     private static String cityName = "Tambov";
-
-    public static String getCityName() {
+    public String getCityName() {
         return cityName;
     }
 
-    public static void setCityName(String city) {
+    public void setCityName(String city) {
         cityName = city;
     }
-
 }

@@ -15,80 +15,58 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.squareup.picasso.Picasso;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import example.com.weather.R;
 import example.com.weather.controllers.Setplaces;
 import example.com.weather.controllers.AdapterWeather;
 import example.com.weather.controllers.PresenterToDay;
-import example.com.weather.utility.Constants;
+import example.com.weather.utility.DateFormatter;
 
 
 public class MainActivity extends AppCompatActivity implements Setplaces {
+    private AlertDialog dialFindCity;
 
-    private Toolbar toolbar;
-    private AlertDialog dial;
-    private FindCityDialog dialog = new FindCityDialog();
-    private RecyclerView recyclerView;
-    private AdapterWeather adapter;
-    private PresenterToDay presenter;
+    private AdapterWeather adapterWeatherByDaysWeek;
+    private PresenterToDay presenterToDay;
     private CollapsingToolbarLayout ctl;
-    private TextView temp;
-    private TextView description;
-    private ImageView icon;
-
+    private TextView tempTitle;
+    private TextView descriptionTitle;
+    private ImageView iconTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        dial = dialog.getDialog(this);
-        toolbar = (Toolbar) findViewById(R.id.i_toolbar);
+        FindCityDialog dialog = new FindCityDialog(this);
+        dialFindCity = dialog.getDialog(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.i_toolbar);
         setSupportActionBar(toolbar);
-        recyclerView = (RecyclerView) findViewById(R.id.rv_items);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_items);
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new AdapterWeather(this);
-        recyclerView.setAdapter(adapter);
-        presenter = new PresenterToDay(this);
-        icon = (ImageView) findViewById(R.id.icon_title);
-        description = (TextView) findViewById(R.id.rain_in_title);
-        temp = (TextView) findViewById(R.id.temp_today);
+        adapterWeatherByDaysWeek = new AdapterWeather(this);
+        recyclerView.setAdapter(adapterWeatherByDaysWeek);
+        presenterToDay = new PresenterToDay(this);
+        iconTitle = (ImageView) findViewById(R.id.icon_title);
+        descriptionTitle = (TextView) findViewById(R.id.rain_in_title);
+        tempTitle = (TextView) findViewById(R.id.temp_today);
         ctl = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbar);
         ctl.setExpandedTitleColor(Color.BLACK);
-        config();
-
-
+        adapterWeatherByDaysWeek.setItemClickListener((position) -> {
+            DateFormatter dateFormatter = new DateFormatter("dd.MM.yyyy");
+            String resultDate = dateFormatter.transformDate(position);
+            Intent intent = new Intent(getApplicationContext(), OneDayWeatherActivity.class);
+            intent.putExtra(OneDayWeatherActivity.EXTRA_WEATHER, resultDate);
+            startActivity(intent);
+        });
     }
 
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
-        adapter.updateWeather();
-
-
-        presenter.updateTitle();
+        adapterWeatherByDaysWeek.updateWeather();
+        presenterToDay.updateTitle();
     }
-
-    public void config() {
-
-            adapter.setListener((position) -> {
-                Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.DATE, +position);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-                Date dateForecast = cal.getTime();
-                String resultDate = simpleDateFormat.format(dateForecast);
-                Intent intent = new Intent(getApplicationContext(), OneDayWeather.class);
-                intent.putExtra(OneDayWeather.EXTRA_WEATHER, resultDate);
-                startActivity(intent);
-            });
-        }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -100,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements Setplaces {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.find:
-                dial.show();
+                dialFindCity.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -108,24 +86,26 @@ public class MainActivity extends AppCompatActivity implements Setplaces {
     }
 
     @Override
-    public void setTemp(float tempToday){
-        temp.setText(this.getString(R.string.temp_value, tempToday));
+    public void setTemp(float tempToday) {
+        tempTitle.setText(this.getString(R.string.temp_value, tempToday));
     }
 
     @Override
-    public void setName(String title){
+    public void setName(String title) {
         ctl.setTitle(title);
     }
 
     @Override
-    public void setIcon(String path){
-        Picasso.with(this).load(Constants.iconPath + path + ".png")
-                .into(icon);
+    public void setIcon(String path) {
+        Picasso.with(this).load(presenterToDay.getIconPath()
+                +path
+                +presenterToDay.getIconType())
+                .into(iconTitle);
     }
 
     @Override
     public void setDescription(String description) {
-        this.description.setText(description);
+        this.descriptionTitle.setText(description);
     }
 }
 

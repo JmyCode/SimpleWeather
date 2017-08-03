@@ -14,23 +14,25 @@ import java.util.List;
 
 import example.com.weather.R;
 import example.com.weather.model.CallbackWeather;
+import example.com.weather.model.MyApp;
+import example.com.weather.model.WeatherModel;
 import example.com.weather.utility.DateFormatter;
 
 
-public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHolder> implements CallbackWeather<List<example.com.weather.model.forecast.List> >{
+public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHolder> implements CallbackWeather<List<example.com.weather.model.forecast.List>> {
 
     private List<example.com.weather.model.forecast.List> date = new ArrayList<>();
-
     private Context context;
-    private DateFormatter dateFormatter = new DateFormatter();
+    private DateFormatter dateFormatter = new DateFormatter("E dd.MM.yyyy");
     private Listener listener;
-    private ProviderWeather providerWeather = new ProviderWeather();
+    private MyApp myApp;
 
     public AdapterWeather(Context context) {
         this.context = context;
+        myApp = (MyApp) context.getApplicationContext();
     }
 
-    public void setListener(Listener listener) {
+    public void setItemClickListener(Listener listener) {
         this.listener = listener;
     }
 
@@ -41,7 +43,6 @@ public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHold
     }
 
     public void onBindViewHolder(ViewHolder holder, final int position) {
-
         CardView cv = holder.cardView;
         ImageView imageView = (ImageView) cv.findViewById(R.id.image_weather);
         TextView weatherTitle = (TextView) cv.findViewById(R.id.weather_day_week);
@@ -62,9 +63,9 @@ public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHold
         );
     }
 
-    public void updateWeather(){
-      providerWeather.getWeekWeather(this);
-
+    public void updateWeather() {
+        WeatherModel weatherModel = myApp.create();
+        weatherModel.getAllWeather(this);
     }
 
     public int getItemCount() {

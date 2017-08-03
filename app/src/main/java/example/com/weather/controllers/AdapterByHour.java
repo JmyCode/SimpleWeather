@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -19,24 +20,29 @@ import java.util.List;
 import java.util.Locale;
 
 import example.com.weather.model.CallbackWeather;
+import example.com.weather.model.MyApp;
+import example.com.weather.model.WeatherModel;
 import example.com.weather.model.response.Weather;
 import example.com.weather.utility.Constants;
 import example.com.weather.R;
-import example.com.weather.views.OneDayWeather;
+import example.com.weather.views.OneDayWeatherActivity;
 
 
 public class AdapterByHour extends RecyclerView.Adapter<AdapterByHour.ViewHolder> implements CallbackWeather<List<example.com.weather.model.response.List>>{
-    private ProviderWeather provider = new ProviderWeather();
+
     private List<example.com.weather.model.response.List> weatherByDay = new ArrayList<>();
     private List<String> dateArray = new ArrayList<>();
     private List<String> icon = new ArrayList<>();
     private Context context;
     private List<Float> tempValue = new ArrayList<>();
     private Intent intent;
+    private WeatherModel weatherModel;
 
     public AdapterByHour(Context context, Intent intent) {
         this.context = context;
         this.intent = intent;
+        MyApp myApp= (MyApp)context.getApplicationContext();
+        weatherModel = myApp.create();
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int item) {
@@ -71,7 +77,7 @@ public class AdapterByHour extends RecyclerView.Adapter<AdapterByHour.ViewHolder
     }
 
     public void getweatherByDay(){
-        provider.getByDay(this);
+        weatherModel.getWeatherByHours(this);
     }
 
     @Override
@@ -79,7 +85,7 @@ public class AdapterByHour extends RecyclerView.Adapter<AdapterByHour.ViewHolder
         if(weatherByDay.isEmpty()) {
             weatherByDay.addAll(weatherDate);
         }
-        String dateValue = intent.getStringExtra(OneDayWeather.EXTRA_WEATHER);
+        String dateValue = intent.getStringExtra(OneDayWeatherActivity.EXTRA_WEATHER);
         Date date;
         String newDateFormat;
         for (example.com.weather.model.response.List comparableDate : weatherByDay) {
@@ -105,6 +111,6 @@ public class AdapterByHour extends RecyclerView.Adapter<AdapterByHour.ViewHolder
 
     @Override
     public void failWeather() {
-
+        Toast.makeText(context, "error", Toast.LENGTH_LONG).show();
     }
 }

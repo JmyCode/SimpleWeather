@@ -1,9 +1,7 @@
 package example.com.weather.views;
 
-
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,17 +11,13 @@ import example.com.weather.R;
 
 public class DialogFragment extends android.app.DialogFragment {
 
-
-    //FrameListener frameListener;
-
+    FrameListener frameListener;
 
     public DialogFragment(){
 
     }
 
-
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.fragment_dialog, null))
@@ -61,7 +55,4 @@ public class DialogFragment extends android.app.DialogFragment {
         void onDialogPositiveClick(DialogFragment dialog);
         void onDialogNegativeClick(DialogFragment dialog);
     }
-
-
-
 }

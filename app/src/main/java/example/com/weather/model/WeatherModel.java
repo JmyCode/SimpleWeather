@@ -4,8 +4,8 @@ import example.com.weather.model.forecast.ForecastObj;
 import example.com.weather.model.forecast.List;
 import example.com.weather.model.oneday.ResponseOneDay;
 import example.com.weather.model.response.ResponseObj;
-import example.com.weather.model.rest.RequestWeather;
-import example.com.weather.model.rest.ServiceGenerator;
+import example.com.weather.network.RequestWeather;
+import example.com.weather.network.ServiceGenerator;
 import example.com.weather.utility.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,15 +18,17 @@ import static example.com.weather.utility.Constants.days;
 
 
 public class WeatherModel {
-    private RequestWeather requestWeather = ServiceGenerator.create(RequestWeather.class);
 
+    private CityModel cityModel = new CityModel();
 
-    public WeatherModel() {
-
+    public CityModel getCityModel() {
+        return cityModel;
     }
 
+    private RequestWeather requestWeather = ServiceGenerator.create(RequestWeather.class);
+
     public void getAllWeather(CallbackWeather callbackWeather) {
-        requestWeather.getWeather(CityModel.getCityName(), days, LANG, DIMENSION, KEY).enqueue(new Callback<ForecastObj>() {
+        requestWeather.getWeather(cityModel.getCityName(), days, LANG, DIMENSION, KEY).enqueue(new Callback<ForecastObj>() {
             @Override
             public void onResponse(Call<ForecastObj> call, Response<ForecastObj> response) {
                 if (response.body() != null) {
@@ -39,13 +41,12 @@ public class WeatherModel {
             @Override
             public void onFailure(Call<ForecastObj> call, Throwable t) {
                 callbackWeather.failWeather();
-
             }
         });
     }
 
     public void getWeatherByHours(CallbackWeather callbackWeather) {
-        requestWeather.getWeatherByHour(CityModel.getCityName(), Constants.LANG, Constants.DIMENSION, Constants.KEY).enqueue(new Callback<ResponseObj>() {
+        requestWeather.getWeatherByHour(cityModel.getCityName(), Constants.LANG, Constants.DIMENSION, Constants.KEY).enqueue(new Callback<ResponseObj>() {
             @Override
             public void onResponse(Call<ResponseObj> call, Response<ResponseObj> response) {
                 if (response.body() != null) {
@@ -63,7 +64,7 @@ public class WeatherModel {
     }
 
     public void getCurrent(CallbackWeather callbackWeather) {
-        requestWeather.getCurrentWeather(CityModel.getCityName(), Constants.LANG, Constants.DIMENSION, Constants.KEY).enqueue(new Callback<ResponseOneDay>() {
+        requestWeather.getCurrentWeather(cityModel.getCityName(), Constants.LANG, Constants.DIMENSION, Constants.KEY).enqueue(new Callback<ResponseOneDay>() {
             @Override
             public void onResponse(Call<ResponseOneDay> call, Response<ResponseOneDay> response) {
                 if (response.body() != null) {
@@ -78,7 +79,5 @@ public class WeatherModel {
             }
         });
     }
-
-
 }
 

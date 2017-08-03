@@ -16,20 +16,33 @@ import example.com.weather.model.forecast.ForecastObj;
 import example.com.weather.model.forecast.List;
 import example.com.weather.model.forecast.Weather;
 
-
 public class DateFormatter {
+
+    private String pattern;
+
+    public DateFormatter(String pattern) {
+        this.pattern = pattern;
+    }
+
+    public String transformDate(int position) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, +position);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+        Date dateForecast = cal.getTime();
+        return simpleDateFormat.format(dateForecast);
+    }
+
     public void formatDate(int position, TextView weatherTitle) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, position);
         Date dateForecast = cal.getTime();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E dd.MM.yyyy", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
         String resultDate = simpleDateFormat.format(dateForecast);
         weatherTitle.setText(resultDate);
     }
 
     public void pushDate(int position, java.util.List<List> date, Context context, ImageView imageView, TextView rainText) {
         float rainForecast = (date.get(position).getRain());
-
         for (Weather w : date.get(position).getWeather()) {
             String pathIcon = w.getIcon();
             String descriptionClouds = w.getDescription();
@@ -37,8 +50,5 @@ public class DateFormatter {
                     .into(imageView);
             rainText.setText(context.getString(R.string.rain, descriptionClouds, rainForecast));
         }
-
     }
-
-
 }
