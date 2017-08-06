@@ -1,7 +1,6 @@
 package example.com.weather.views;
 
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,7 +24,6 @@ import example.com.weather.utility.DateFormatter;
 
 
 public class MainActivity extends AppCompatActivity implements Setplaces {
-    private AlertDialog dialFindCity;
 
     private AdapterWeather adapterWeatherByDaysWeek;
     private PresenterToDay presenterToDay;
@@ -38,8 +36,6 @@ public class MainActivity extends AppCompatActivity implements Setplaces {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FindCityDialog dialog = new FindCityDialog(this);
-        dialFindCity = dialog.getDialog(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.i_toolbar);
         setSupportActionBar(toolbar);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_items);
@@ -78,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements Setplaces {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.find:
-                dialFindCity.show();
+                new FindCityDialog(this).getDialog(this).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -97,9 +93,8 @@ public class MainActivity extends AppCompatActivity implements Setplaces {
 
     @Override
     public void setIcon(String path) {
-        Picasso.with(this).load(presenterToDay.getIconPath()
-                +path
-                +presenterToDay.getIconType())
+        Picasso.with(this)
+                .load(getString(R.string.icon_load, path))
                 .into(iconTitle);
     }
 

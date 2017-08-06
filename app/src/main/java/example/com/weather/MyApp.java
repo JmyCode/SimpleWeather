@@ -1,6 +1,8 @@
-package example.com.weather.model;
+package example.com.weather;
 
 import android.app.Application;
+
+import example.com.weather.model.WeatherModel;
 
 
 public class MyApp extends Application {
@@ -13,7 +15,7 @@ public class MyApp extends Application {
         weatherModel = new WeatherModel();
     }
 
-    public WeatherModel create(){
+    public WeatherModel getModel(){
         return  weatherModel;
     }
 }
