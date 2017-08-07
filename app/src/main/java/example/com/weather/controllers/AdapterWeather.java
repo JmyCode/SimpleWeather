@@ -14,13 +14,14 @@ import java.util.List;
 
 import example.com.weather.R;
 import example.com.weather.model.CallbackWeather;
-import example.com.weather.MyApp;
+import example.com.weather.model.MyApp;
+import example.com.weather.model.WeatherModel;
 import example.com.weather.utility.DateFormatter;
 
 
 public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHolder> implements CallbackWeather<List<example.com.weather.model.forecast.List>> {
 
-    private List<example.com.weather.model.forecast.List> data = new ArrayList<>();
+    private List<example.com.weather.model.forecast.List> date = new ArrayList<>();
     private Context context;
     private DateFormatter dateFormatter = new DateFormatter("E dd.MM.yyyy");
     private Listener listener;
@@ -49,11 +50,11 @@ public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHold
         TextView rainText = (TextView) cv.findViewById(R.id.rain_text);
         TextView winterSpeed = (TextView) cv.findViewById(R.id.winter_speed);
         TextView pressure = (TextView) cv.findViewById(R.id.pressure);
-        weather.setText(context.getString(R.string.temp_value, data.get(position).getTemp().getDay()));
+        weather.setText(context.getString(R.string.temp_value, date.get(position).getTemp().getDay()));
         dateFormatter.formatDate(position, weatherTitle);
-        dateFormatter.pushDate(position, data, context, imageView, rainText);
-        winterSpeed.setText(context.getString(R.string.winter, data.get(position).getSpeed()));
-        pressure.setText(context.getString(R.string.pressure, data.get(position).getPressure()));
+        dateFormatter.pushDate(position, date, context, imageView, rainText);
+        winterSpeed.setText(context.getString(R.string.winter, date.get(position).getSpeed()));
+        pressure.setText(context.getString(R.string.pressure, date.get(position).getPressure()));
         cv.setOnClickListener((view) -> {
                     if (listener != null) {
                         listener.onClick(position);
@@ -63,17 +64,18 @@ public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHold
     }
 
     public void updateWeather() {
-        myApp.getModel().getAllWeather(this);
+        WeatherModel weatherModel = myApp.create();
+        weatherModel.getAllWeather(this);
     }
 
     public int getItemCount() {
-        return data.size();
+        return date.size();
     }
 
     @Override
     public void successWeather(List<example.com.weather.model.forecast.List> date) {
-        if (this.data.isEmpty()) {
-            this.data.addAll(date);
+        if (this.date.isEmpty()) {
+            this.date.addAll(date);
         }
         notifyDataSetChanged();
     }

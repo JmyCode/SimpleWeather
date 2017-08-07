@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.EditText;
 
 import example.com.weather.R;
-import example.com.weather.MyApp;
+import example.com.weather.model.CityModel;
+import example.com.weather.model.MyApp;
 import example.com.weather.model.WeatherModel;
+import example.com.weather.model.forecast.Weather;
 
 
 public class FindCityDialog {
@@ -19,7 +21,7 @@ public class FindCityDialog {
 
     FindCityDialog(Context context) {
         MyApp myApp = (MyApp) context.getApplicationContext();
-        weatherModel = myApp.getModel();
+        weatherModel = myApp.create();
     }
 
     public AlertDialog getDialog(Activity activity) {

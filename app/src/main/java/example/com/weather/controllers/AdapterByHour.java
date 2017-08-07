@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Locale;
 
 import example.com.weather.model.CallbackWeather;
-import example.com.weather.MyApp;
+import example.com.weather.model.MyApp;
 import example.com.weather.model.WeatherModel;
 import example.com.weather.model.response.Weather;
 import example.com.weather.utility.Constants;
@@ -42,7 +42,7 @@ public class AdapterByHour extends RecyclerView.Adapter<AdapterByHour.ViewHolder
         this.context = context;
         this.intent = intent;
         MyApp myApp= (MyApp)context.getApplicationContext();
-        weatherModel = myApp.getModel();
+        weatherModel = myApp.create();
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int item) {
@@ -86,13 +86,15 @@ public class AdapterByHour extends RecyclerView.Adapter<AdapterByHour.ViewHolder
             weatherByDay.addAll(weatherDate);
         }
         String dateValue = intent.getStringExtra(OneDayWeatherActivity.EXTRA_WEATHER);
+        Date date;
+        String newDateFormat;
         for (example.com.weather.model.response.List comparableDate : weatherByDay) {
             String dateList = comparableDate.getDt_txt();
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             SimpleDateFormat newFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
             try {
-                Date date = formatter.parse(dateList);
-                String newDateFormat = newFormat.format(date);
+                date = formatter.parse(dateList);
+                newDateFormat = newFormat.format(date);
                 if (newDateFormat.equals(dateValue)) {
                     tempValue.add(comparableDate.getMain().getTemp());
                     dateArray.add(comparableDate.getDt_txt());
