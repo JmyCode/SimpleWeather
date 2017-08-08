@@ -27,6 +27,6 @@ public class OneDayWeatherActivity extends Activity {
 
     protected void onStart(){
         super.onStart();
-        adapterByHour.getweatherByDay();
+        adapterByHour.getWeatherByDay();
     }
 }

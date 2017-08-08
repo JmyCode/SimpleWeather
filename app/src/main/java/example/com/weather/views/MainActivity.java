@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements Setplaces {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.find:
-                new FindCityDialog(this).getDialog(this).show();
+                new DialogFragment().show(getFragmentManager(), "dialog");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -20,12 +20,11 @@ import static example.com.weather.utility.Constants.days;
 public class WeatherModel {
 
     private CityModel cityModel = new CityModel();
+    private RequestWeather requestWeather = ServiceGenerator.create(RequestWeather.class);
 
     public CityModel getCityModel() {
         return cityModel;
     }
-
-    private RequestWeather requestWeather = ServiceGenerator.create(RequestWeather.class);
 
     public void getAllWeather(CallbackWeather callbackWeather) {
         requestWeather.getWeather(cityModel.getCityName(), days, LANG, DIMENSION, KEY).enqueue(new Callback<ForecastObj>() {

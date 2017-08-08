@@ -76,7 +76,7 @@ public class AdapterByHour extends RecyclerView.Adapter<AdapterByHour.ViewHolder
         }
     }
 
-    public void getweatherByDay(){
+    public void getWeatherByDay(){
         weatherModel.getWeatherByHours(this);
     }
 

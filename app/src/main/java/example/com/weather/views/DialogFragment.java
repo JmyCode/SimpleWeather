@@ -5,34 +5,40 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
+import example.com.weather.MyApp;
 import example.com.weather.R;
+import example.com.weather.model.WeatherModel;
 
 
 public class DialogFragment extends android.app.DialogFragment {
+    AlertDialog.Builder builder;
 
-    FrameListener frameListener;
-
-    public DialogFragment(){
-
-    }
+    private WeatherModel weatherModel;
+    private EditText editText;
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.fragment_dialog, null))
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        DialogFragment.super.onCancel(dialog);
-                    }
-                })
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                       //frameListener.onDialogPositiveClick(DialogFragment.this);
+        weatherModel = MyApp.getInstance(getActivity().getApplicationContext()).getModel();
+        View view = inflater.inflate(R.layout.fragment_dialog, null);
+        editText = (EditText) view.findViewById(R.id.edit_city_title);
+        builder.setView(view)
+                .setNegativeButton(R.string.cancel, (DialogInterface dialog, int id) -> {
+                    DialogFragment.super.onCancel(dialog);
 
+                })
+                .setPositiveButton(R.string.ok, (DialogInterface dialog, int id) -> {
+                    String result = editText.getText().toString();
+                    if (result.isEmpty() || result.startsWith(" ")) {
+                        result = "Tambov";
                     }
+                    weatherModel.getCityModel().setCityName(result);
+                    getActivity().recreate();
+                    dismiss();
                 });
 
         return builder.create();
@@ -44,15 +50,5 @@ public class DialogFragment extends android.app.DialogFragment {
         Button button1 = ((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_POSITIVE);
         button.setTextColor(getResources().getColor(R.color.colorPrimary));
         button1.setTextColor(getResources().getColor(R.color.colorPrimary));
-    }
-
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        frameListener = (FrameListener) context;
-//    }
-
-    public interface FrameListener {
-        void onDialogPositiveClick(DialogFragment dialog);
-        void onDialogNegativeClick(DialogFragment dialog);
     }
 }
