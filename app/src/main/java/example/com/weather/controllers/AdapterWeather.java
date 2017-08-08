@@ -24,11 +24,9 @@ public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHold
     private Context context;
     private DateFormatter dateFormatter = new DateFormatter("E dd.MM.yyyy");
     private Listener listener;
-    private MyApp myApp;
 
     public AdapterWeather(Context context) {
         this.context = context;
-        myApp = (MyApp) context.getApplicationContext();
     }
 
     public void setItemClickListener(Listener listener) {
@@ -63,7 +61,7 @@ public class AdapterWeather extends RecyclerView.Adapter<AdapterWeather.ViewHold
     }
 
     public void updateWeather() {
-        myApp.getModel().getAllWeather(this);
+        MyApp.getInstance(context).getModel().getAllWeather(this);
     }
 
     public int getItemCount() {

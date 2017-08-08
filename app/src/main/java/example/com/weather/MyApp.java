@@ -1,6 +1,7 @@
 package example.com.weather;
 
 import android.app.Application;
+import android.content.Context;
 
 import example.com.weather.model.WeatherModel;
 
@@ -17,5 +18,9 @@ public class MyApp extends Application {
 
     public WeatherModel getModel(){
         return  weatherModel;
+    }
+
+    public static MyApp getInstance(Context context){
+        return (MyApp)context.getApplicationContext();
     }
 }

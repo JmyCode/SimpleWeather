@@ -18,8 +18,7 @@ public class FindCityDialog {
     private EditText editText;
 
     FindCityDialog(Context context) {
-        MyApp myApp = (MyApp) context.getApplicationContext();
-        weatherModel = myApp.getModel();
+        weatherModel = MyApp.getInstance(context).getModel();
 }
 
     public AlertDialog getDialog(Activity activity) {

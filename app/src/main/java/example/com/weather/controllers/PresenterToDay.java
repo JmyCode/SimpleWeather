@@ -18,8 +18,7 @@ public class PresenterToDay implements CallbackWeather<ResponseOneDay> {
     public PresenterToDay(Setplaces setplaces) {
         this.setplaces = setplaces;
         context = (Context) setplaces;
-        MyApp myApp = (MyApp) context.getApplicationContext();
-        weatherModel = myApp.getModel();
+        weatherModel = MyApp.getInstance(context).getModel();
     }
 
     public void updateTitle() {
