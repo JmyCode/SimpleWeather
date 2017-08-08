@@ -15,22 +15,18 @@ import example.com.weather.model.WeatherModel;
 
 
 public class DialogFragment extends android.app.DialogFragment {
-    AlertDialog.Builder builder;
 
     private WeatherModel weatherModel;
     private EditText editText;
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         weatherModel = MyApp.getInstance(getActivity().getApplicationContext()).getModel();
         View view = inflater.inflate(R.layout.fragment_dialog, null);
         editText = (EditText) view.findViewById(R.id.edit_city_title);
         builder.setView(view)
-                .setNegativeButton(R.string.cancel, (DialogInterface dialog, int id) -> {
-                    DialogFragment.super.onCancel(dialog);
-
-                })
+                .setNegativeButton(R.string.cancel, (DialogInterface dialog, int id) -> DialogFragment.super.onCancel(dialog))
                 .setPositiveButton(R.string.ok, (DialogInterface dialog, int id) -> {
                     String result = editText.getText().toString();
                     if (result.isEmpty() || result.startsWith(" ")) {
