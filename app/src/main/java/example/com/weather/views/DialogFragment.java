@@ -30,7 +30,7 @@ public class DialogFragment extends android.app.DialogFragment {
                 .setPositiveButton(R.string.ok, (DialogInterface dialog, int id) -> {
                     String result = editText.getText().toString();
                     if (result.isEmpty() || result.startsWith(" ")) {
-                        result = "Tambov";
+                        return;
                     }
                     weatherModel.getCityModel().setCityName(result);
                     getActivity().recreate();
