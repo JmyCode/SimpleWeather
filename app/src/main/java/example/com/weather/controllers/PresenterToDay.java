@@ -3,7 +3,6 @@ package example.com.weather.controllers;
 import android.content.Context;
 import android.widget.Toast;
 
-
 import example.com.weather.model.CallbackWeather;
 import example.com.weather.MyApp;
 import example.com.weather.model.WeatherModel;

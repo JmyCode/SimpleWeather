@@ -23,7 +23,6 @@ import example.com.weather.model.CallbackWeather;
 import example.com.weather.MyApp;
 import example.com.weather.model.WeatherModel;
 import example.com.weather.model.response.Weather;
-import example.com.weather.utility.Constants;
 import example.com.weather.R;
 import example.com.weather.views.OneDayWeatherActivity;
 
@@ -59,7 +58,7 @@ public class AdapterByHour extends RecyclerView.Adapter<AdapterByHour.ViewHolder
         weatherValue.setText(context.getString(R.string.temp_value, tempValue.get(position)));
         dateValue.setText(context.getString(R.string.date_value, dateArray.get(position)));
         Picasso.with(context)
-                .load(Constants.iconPath + icon.get(position) + ".png")
+                .load(context.getString(R.string.icon_load, icon.get(position)))
                 .into(img);
     }
 

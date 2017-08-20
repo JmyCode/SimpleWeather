@@ -1,5 +1,6 @@
 package example.com.weather.model;
 
+
 import example.com.weather.model.forecast.ForecastObj;
 import example.com.weather.model.forecast.List;
 import example.com.weather.model.oneday.ResponseOneDay;
